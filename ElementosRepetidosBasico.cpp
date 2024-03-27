@@ -73,13 +73,14 @@ int main(int argc, char *argv[]) {
 
 void EliminarRepes(int vector [], int n){
     set<int> sindupes; // O(1). Se crea un set para dejar fuera los repetidos
-    int i = 0;
+    int i = 0; //O(1)
     for(i = 0; i < n; i++)
         sindupes.insert(vector[i]); //Se cogen todos los números no repetidos
-    for(i = 0; i < n; i++)
+                                    //n*O(log(n))=O(nlogn)
+    for(i = 0; i < n; i++) //O(n)
         vector[i] = 0; //Se borra el vector inicial
-    i = 0;
-    for(int elem: sindupes){
+    i = 0; //O(1)
+    for(int elem: sindupes){ //O(n)
         vector[i] = elem; //Se guardan los elementos no repetidos
         ++i;
     }
