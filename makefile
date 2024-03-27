@@ -13,4 +13,4 @@ clean:
 	@rm ElementosRepetidosDV.bin
 	@rm Productode3DV.bin
 
-.phony: clean
+.PHONY: clean
