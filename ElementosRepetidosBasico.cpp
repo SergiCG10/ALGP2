@@ -46,15 +46,19 @@ int main(int argc, char *argv[]) {
 		// Generamos vector aleatorio de prueba, con componentes entre 0 y n-1
 		for (i= 0; i<n; i++)
 			v[i]= rand()%n;
-		
-		cerr << "Ejecutando Burbuja para tam. caso: " << n << endl;
+	
+        PrintVector(v, n);
+
+		cerr << "Ejecutando ElementosRepetidosBasico para tam. caso: " << n << endl;
 		
 		t0= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que comienza la ejecuciÛn del algoritmo
 		EliminarRepes(v, n); // Ejecutamos el algoritmo para tamaÒo de caso tam
 		tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
 		
 		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
-		
+
+        PrintVector(v, n);
+
 		cerr << "\tTiempo de ejec. (us): " << tejecucion << " para tam. caso "<< n<<endl;
 		
 		// Guardamos tam. de caso y t_ejecucion a fichero de salida
@@ -71,14 +75,14 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void EliminarRepes(int vector [], int n){
+void EliminarRepes(int* vector, int n){
     set<int> sindupes; // O(1). Se crea un set para dejar fuera los repetidos
     int i = 0; //O(1)
     for(i = 0; i < n; i++)
         sindupes.insert(vector[i]); //Se cogen todos los números no repetidos
                                     //n*O(log(n))=O(nlogn)
-    for(i = 0; i < n; i++) //O(n)
-        vector[i] = 0; //Se borra el vector inicial
+    for(i = 0; i < n; i++)
+            vector[i] = -1;
     i = 0; //O(1)
     for(int elem: sindupes){ //O(n)
         vector[i] = elem; //Se guardan los elementos no repetidos
@@ -88,5 +92,6 @@ void EliminarRepes(int vector [], int n){
 
 void PrintVector(int vector [], int n){
     for(int i = 0; i < n; i++)
-        cout << vector[i] << endl;
+        cout << vector[i] << " ";
+    cout << endl;
 }

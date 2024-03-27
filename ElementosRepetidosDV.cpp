@@ -3,6 +3,8 @@
 #include <utility>
 using namespace std;
 
+void EliminarRepes(int *vector, int n);
+
 void fusionaMS(int *v, int posIni, int centro, int posFin, int *vaux) {
     int i = posIni;
     int j = centro;
@@ -37,14 +39,14 @@ void fusionaMS(int *v, int posIni, int centro, int posFin, int *vaux) {
         //Vaux ordenado por lo que los elementos que sean
         //igual serán contiguos, si no es igual al último elemento
         //entonces que lo guarde
-        if(vaux[i-1] != vaux[i]) //O(1) 
+        if(vaux[i-1] != vaux[i]) //O(1)
             v[posIni+i] = vaux[i];
         //Si son iguales, entonces que lo borre (con un 0), este else {
         //el peor caso
         else{
-            v[posIni+i] = 0; //Borrado, O(1)
+            v[posIni+i] = -1; //Borrado, O(1)
             j=posIni+i; //Desplazamos el elemento borrado al inicio
-            while(v[j] <  v[j-1] &&
+            while(v[j] < v[j-1] &&
                     j > posIni){ //ESTE, inicio, porque es el punto que estamos
                                  //manipulando
                 swap(v[j], v[j-1]);
@@ -71,10 +73,28 @@ int main() {
     for (i = 0; i < 8; ++i)
         std::cout << v[i] << " ";
     std::cout << std::endl << std::endl;
-    MergeSort(v, 0, 7, vaux);
+    EliminarRepes(v, 8);
     for (i = 0; i < 8; ++i) {
         std::cout << v[i] << " ";
     }
     std::cout << std::endl;
     return 0;
+}
+
+
+void EliminarRepes(int *vector, int n){
+    if(n <= 1 || vector == 0)
+        return;
+    int *vaux = new int[n], i=0, repes=0;
+    MergeSort(vector, 0, n-1, vaux);
+    while(vector[i] < 0){ 
+        ++repes;
+        ++i;
+    }
+    for(i=repes; i < n; i++)
+        swap(vector[i-repes], vaux[i]);
+    for(i=0; i < repes; i++)
+        vector[n-1-i] = -1;
+    delete [] vaux;
+
 }
