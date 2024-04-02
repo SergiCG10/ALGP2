@@ -47,7 +47,6 @@ int main(int argc, char *argv[]) {
 		for (i= 0; i<n; i++)
 			v[i]= rand()%n;
 	
-        PrintVector(v, n);
 
 		cerr << "Ejecutando ElementosRepetidosBasico para tam. caso: " << n << endl;
 		
@@ -57,7 +56,6 @@ int main(int argc, char *argv[]) {
 		
 		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
 
-        PrintVector(v, n);
 
 		cerr << "\tTiempo de ejec. (us): " << tejecucion << " para tam. caso "<< n<<endl;
 		

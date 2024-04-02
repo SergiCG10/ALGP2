@@ -1,6 +1,5 @@
 #include <cstdlib> // Para usar srand y rand
 #include <chrono>
-#include <cstring> // Para usar memcpy
 #include <iostream>
 #include <fstream> // Para usar ficheros
 
@@ -12,7 +11,7 @@ int ProductoDe3(int n, int gap, int nactual);
 
 int main(int argc, char *argv[]) {
 	
-	int n, i, argumento, numero;
+	int n, i, argumento, numero, prod3=0;
     chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
 	double tejecucion; // tiempo de ejecucion del algoritmo en ms
 	unsigned long int semilla;
@@ -45,11 +44,11 @@ int main(int argc, char *argv[]) {
 		
 		// Generamos vector aleatorio de prueba, con componentes entre 0 y n-1
 		
-        numero = rand()%n;
+        numero = n;
 		cerr << "Ejecutando Productode3 para tam. caso: " << n << endl;
         
 		t0= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que comienza la ejecuciÛn del algoritmo
-        ProductoDe3(numero);
+        prod3=ProductoDe3(numero);
 		tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
 	    
         cerr << endl;
@@ -58,7 +57,7 @@ int main(int argc, char *argv[]) {
 		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
 		
 		cerr << "\tTiempo de ejec. (us): " << tejecucion << " para tam. caso "<< n<<endl;
-		
+	    cerr << "Resultado para " << numero << " es " << prod3 << endl;	
 		// Guardamos tam. de caso y t_ejecucion a fichero de salida
 		fsalida<<n<<" "<<tejecucion<<"\n";
 		
@@ -73,12 +72,13 @@ int main(int argc, char *argv[]) {
 }
 
 int ProductoDe3(int n){
-    return ProductoDe3(n, n/2, n-n/2);
+    return ProductoDe3(n, n/2, n/2);
 }
 
 
 int ProductoDe3(int n, int gap, int nactual){
-    long producto = nactual*(nactual+1)*
+    unsigned long long producto = 0;
+    producto=nactual*(nactual+1)*
         (nactual+2);
     
     if(gap == 0 && producto != n) return -1;
