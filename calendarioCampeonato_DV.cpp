@@ -1,4 +1,9 @@
-#include <iostream>
+// Fichero calendarioCampeonato_DV.cpp con la solución al quinto ejercicio de la segunda práctica de ALG
+
+#include <cstdlib> // Para usar srand y rand
+#include <chrono> // Para usar el cronómetro
+#include <iostream> 
+#include <fstream>
 #include <cmath>
 
 using namespace std;
@@ -90,42 +95,86 @@ bool copiarMatrices(int **vCopiar, int f1, int c1, int **vPegar, int f2, int c2,
  * @param equipos numero de equipos que participarán 
  */
 void organizarCalendario( int **v, int equipos){
+    //Caso base, donde el numero de equipos sea 1
     if( equipos < 2){
         v[0][0] = 1;
     }else{
+        //Llamada recursiva reduciendo la matriz al primer cuarto (arriba izquierda)
         organizarCalendario(v, equipos/2);
-        copiarMatrices( v, equipos, equipos, v, equipos, equipos, 0, 0, 0, equipos/2, equipos/2, equipos/2, equipos/2);
-        copiarMatrices( v, equipos, equipos, v, equipos, equipos, 0, equipos/2, equipos/2, 0, equipos/2, equipos/2);
-        copiarMatrices( v, equipos, equipos, v, equipos, equipos, 0, 0, equipos/2, equipos/2, equipos/2, equipos/2);
+   
+        //Copiamos el primer cuadrante (arriba izquierda) en el segundo cuadrante (arriba a la derecha) sumandole equipos/2
+        copiarMatrices( v, equipos, equipos, v, equipos, equipos, 0,         0,         0, equipos/2, equipos/2, equipos/2, equipos/2);
+        //Copiamos el segundo cuadrante (arriba derecha) en el tercer cuadrante (abajo a la izquierda) 
+        copiarMatrices( v, equipos, equipos, v, equipos, equipos, 0, equipos/2, equipos/2,         0, equipos/2, equipos/2);
+        //Copiamos el primer cuadrante (arriba izquierda) en el cuarto cuadrante (abajo a la derecha)
+        copiarMatrices( v, equipos, equipos, v, equipos, equipos, 0,         0, equipos/2, equipos/2, equipos/2, equipos/2);
+    }
+}
+/**
+ * @brief funcion potenciaDe2. Funcion auxiliar para comprobar si un numero es potencia de 2
+ *
+ * @param n Numero a comprobar   
+ */
+bool potenciaDe2(int n){
+    if( n == 1){
+        return true;
+    }else if( n%2 != 0){
+        return false;
+    }else{
+        return potenciaDe2( n/2 );
     }
 }
 
 int main(int argc, char* argv[]){
-
-    if(argc == 3 ){
-        int nEquipos= atoi(argv[2]);
-
+    if( argc != 3){
+        cerr<<"\nError: El programa se debe ejecutar de la siguiente forma:\n\n";
+        cerr<<"./calendarioCampeonato_DV <nombreFicheroSalida> <numEquipos>\n";
+        cerr<<"nombreFicheroSalida: nombre del fichero de salida de datos para la eficiencia\n";
+        cerr<<"numEquipos: numero de equipos para organizar el campeonato (debe de ser potencia de 2) \n\n";
+    }else{
+        ofstream fsalida;
+        chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
+        
+        //Numero de equipos
+        int nEquipos = atoi(argv[2]);
+      
+        //Comprobamos que sea potencia de 2
+        if( !potenciaDe2(nEquipos) || nEquipos <= 1){
+            cerr<<"\nError: el numero de equipos debe de ser potencia de 2 o mayor que 1"<<endl;
+            return 1;
+        }
+        //Reservamos memoria para la matriz donde guardar el calendario
         int **calendario = new int* [nEquipos];
         for(int i=0; i< nEquipos; i++){
             calendario[i] = new int [nEquipos];
         }
-
-        //calculamos el calendario
-        organizarCalendario( calendario, nEquipos);
-        //organizarCalendario( calendario, nEquipos, nDias, 0);
-
-        //imprimimos el resultado
-        imprimirCalendario(calendario, nEquipos);
         
-        //borramos la matriz
+        // Abrimos fichero de salida
+        fsalida.open(argv[1]);
+        if (!fsalida.is_open()) {
+            cerr<<"Error: No se pudo abrir fichero para escritura "<<argv[1]<<"\n\n";
+            return 0;
+        }
+
+        t0= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que comienza la ejecuciÛn del algoritmo
+        organizarCalendario( calendario, nEquipos);
+        tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
+
+        unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
+
+        cerr << "\tTiempo de ejec. (us): " << tejecucion << " para "<< nEquipos << " equipos"<<endl;
+		
+		// Guardamos tam. de caso y t_ejecucion a fichero de salida
+		fsalida<<""<<nEquipos<<" "<<tejecucion<<"\n";
+
+        //Imprimimos el calendario 
+        imprimirCalendario(calendario, nEquipos );
+
+        //Liberamos memoria
         for(int i =0; i < nEquipos; i++){
             delete calendario[i];
         }
         delete [] calendario;
-
-    }else{
-        cerr<<"\nError: El programa se debe ejecutar de la siguiente forma:\n\n";
-        cerr<<"./ejer2.5_DV <nombreFicheroSalida> <nEquipos> \n";
-        cerr<<"nEquipos: numero de equipos que se presentan\n\n";
     }
+    return 0;
 }

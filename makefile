@@ -2,7 +2,7 @@
 all:
 	#Ejercicio1
 	@g++ -o laMayoriaAbsolutaIterativo.bin laMayoriaAbsolutaIterativo.cpp -std=c++11
-	#@g++ -olaMayoriaAbsolutaDV.bin laMayoriaAbsolutaDV.cpp -std=c++11
+	@g++ -olaMayoriaAbsolutaDV.bin laMayoriaAbsolutaDV.cpp -std=c++11
 	@echo Ejercicio 1 compilado
 	
 	#Ejercicio2
