@@ -54,9 +54,9 @@ int main(int argc, char *argv[]) {
         cerr << endl;
 
 
-		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
+		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::nanoseconds>(tf - t0).count();
 		
-		cerr << "\tTiempo de ejec. (us): " << tejecucion << " para tam. caso "<< n<<endl;
+		cerr << "\tTiempo de ejec. (ns): " << tejecucion << " para tam. caso "<< n<<endl;
 	    cerr << "Resultado para " << numero << " es " << prod3 << endl;	
 		// Guardamos tam. de caso y t_ejecucion a fichero de salida
 		fsalida<<n<<" "<<tejecucion<<"\n";
