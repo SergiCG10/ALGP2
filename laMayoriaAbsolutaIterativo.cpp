@@ -9,7 +9,7 @@ using namespace std;
 
 int main( int argc, char * argv[] ){
 
-    if(argc < 4){
+    if(argc < 5){
         cerr<<"\nError: El programa se debe ejecutar de la siguiente forma:\n\n";
         cerr<<"./laMayoriaAbsoluta <nombreFicheroSalida> <semilla> <numVotantes> <numCandidatos>\n";
         cerr<<"nombreFicheroSalida: nombre del fichero de salida de datos para la eficiencia\n";
