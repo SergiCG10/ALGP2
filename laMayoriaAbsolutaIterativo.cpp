@@ -1,4 +1,4 @@
-// Fichero laMayoriaAbsoluta.cpp con la solución al primer ejercicio de la segunda práctica de ALG
+// Fichero laMayoriaAbsolutaIterativo.cpp con la solución al primer ejercicio de la segunda práctica de ALG
 
 #include <cstdlib> // Para usar srand y rand
 #include <chrono> // Para usar el cronómetro
@@ -9,9 +9,9 @@ using namespace std;
 
 int main( int argc, char * argv[] ){
 
-    if(argc < 5){
+    if(argc != 5){
         cerr<<"\nError: El programa se debe ejecutar de la siguiente forma:\n\n";
-        cerr<<"./laMayoriaAbsoluta <nombreFicheroSalida> <semilla> <numVotantes> <numCandidatos>\n";
+        cerr<<"./laMayoriaAbsolutaIterativo <nombreFicheroSalida> <semilla> <numVotantes> <numCandidatos>\n";
         cerr<<"nombreFicheroSalida: nombre del fichero de salida de datos para la eficiencia\n";
         cerr<<"semilla: variable para generar el vector de votos de forma pseudoaleatoria\n";
         cerr<<"numVotantes: numero de votantes";
@@ -26,11 +26,6 @@ int main( int argc, char * argv[] ){
         chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
         ofstream fsalida;
 
-        //Inicializamos el vector de resultados a 0
-        for (int i = 0 ; i < numCandidatos; i++){
-            resultado[i] = 0;
-        }
-
         //Cogemos la semilla para rellenar el vector de votos
         semilla= atoi(argv[2]);
 	    srand(semilla);
@@ -42,6 +37,11 @@ int main( int argc, char * argv[] ){
         // Reservamos memoria para el vector
 		votos = new int[numVotantes];
         resultado = new int [numCandidatos];
+
+        //Inicializamos el vector de resultados a 0
+        for (int i = 0 ; i < numCandidatos; i++){
+            resultado[i] = 0;
+        }
 
         // Abrimos fichero de salida
         fsalida.open(argv[1]);
