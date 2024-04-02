@@ -27,6 +27,7 @@ all:
 #elimina los ejecutables
 clean:
 	@rm laMayoriaAbsolutaIterativo.bin
+	@rm laMayoriaAbsolutaDV.bin
 	@rm ElementosRepetidosBasico.bin
 	@rm ElementosRepetidosDV.bin
 	@rm Productode3Iterativo.bin
