@@ -2,16 +2,16 @@
 #include <chrono>
 #include <iostream>
 #include <fstream> // Para usar ficheros
-#include <set>
+#include <vector>
 
 using namespace std;
 
-void EliminarRepes(int vector [], int n);
-void PrintVector(int vector [], int n);
+vector<int> EliminarRepes(const vector<int>& vec);
+void PrintVector(const vector<int>& vec);
 
 int main(int argc, char *argv[]) {
 	
-	int *v;
+    vector<int> v;
 	int n, i, argumento;
     chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
 	unsigned long int semilla;
@@ -41,30 +41,27 @@ int main(int argc, char *argv[]) {
 		n= atoi(argv[argumento]);
 		
 		// Reservamos memoria para el vector
-		v= new int[n];
-		
+        v.resize(n);
+
 		// Generamos vector aleatorio de prueba, con componentes entre 0 y n-1
 		for (i= 0; i<n; i++)
-			v[i]= rand()%n;
-	
+            v[i]=rand()%n;
 
 		cerr << "Ejecutando ElementosRepetidosBasico para tam. caso: " << n << endl;
 		
 		t0= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que comienza la ejecuciÛn del algoritmo
-		EliminarRepes(v, n); // Ejecutamos el algoritmo para tamaÒo de caso tam
+		v=EliminarRepes(v); // Ejecutamos el algoritmo para tamaÒo de caso tam
 		tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
 		
 		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
-
 
 		cerr << "\tTiempo de ejec. (us): " << tejecucion << " para tam. caso "<< n<<endl;
 		
 		// Guardamos tam. de caso y t_ejecucion a fichero de salida
 		fsalida<<n<<" "<<tejecucion<<"\n";
 		
-		
-		// Liberamos memoria del vector
-		delete [] v;
+        //borramos el vector
+        v.clear();
 	}
 	
 	// Cerramos fichero de salida
@@ -73,23 +70,28 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void EliminarRepes(int* vector, int n){
-    set<int> sindupes; // O(1). Se crea un set para dejar fuera los repetidos
-    int i = 0; //O(1)
-    for(i = 0; i < n; i++)
-        sindupes.insert(vector[i]); //Se cogen todos los números no repetidos
-                                    //n*O(log(n))=O(nlogn)
-    for(i = 0; i < n; i++)
-            vector[i] = -1;
-    i = 0; //O(1)
-    for(int elem: sindupes){ //O(n)
-        vector[i] = elem; //Se guardan los elementos no repetidos
-        ++i;
+vector<int> EliminarRepes(const vector<int>& vec){
+    int elem, index;
+    vector<int> vec_limpio;
+    bool unico = true;
+    if(vec.empty())
+        return vec_limpio;
+
+    vec_limpio.push_back(vec[0]);
+    for(elem = 1; elem < vec.size(); elem++){
+        unico = true;
+        for(index = 0; unico && index < vec_limpio.size(); 
+                index++)
+            if(vec_limpio[index] == vec[elem])
+                unico = false;
+        if(unico)
+            vec_limpio.push_back(vec[elem]);
     }
+    return vec_limpio;
 }
 
-void PrintVector(int vector [], int n){
-    for(int i = 0; i < n; i++)
-        cout << vector[i] << " ";
+void PrintVector(const vector<int>& vec){
+    for(int elem: vec)
+        cout << elem << " ";
     cout << endl;
 }
