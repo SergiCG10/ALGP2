@@ -28,12 +28,13 @@ candidato mayoriaABS(int* v, int nVotos ){
     int* resultado; //Vector que contendrá los votos de los candidatos, cada posición corresponde al número de indentificador de cada candidato
     int mayorID =-1;
 
+    //Buscamos el mayor ID de los candidatos
     for(int i =0; i <nVotos; i++){
         if( v[i]> mayorID){
             mayorID = v[i];
         }
     }
-
+    //Creamos un vector con el mismo numero que el ID mayor de los candidatos
     resultado = new int [mayorID];
 
     //Inicializamos el vector de resultados a 0
