@@ -68,7 +68,6 @@ int main(int argc, char *argv[]) {
 		fsalida<<n<<" "<<tejecucion<<"\n";
 		
 		
-		// Liberamos memoria del vector
 	}
 	
 	// Cerramos fichero de salida
