@@ -53,13 +53,11 @@ candidato mayoriaABS(int* v, int nVotos ){
     }
 
     int votosContados= 0; // Variable auxiliar, una vez que esta sea igual que la mitad+1 de los votos, dejamos de contar ya que no es posible la mayoría absoluta
-    candidato ganador; // Variable booleana que representa si se encuentra la mayoría absoluta
-    bool encontrado = false;
+    candidato ganador; // Estruct que contiene se encuentra candidato con mayoria y su ID y votos
 
     //Buscamos si alguien tiene mayoría absoluta
-    for( int i = 0; ( i < mayorID ) && !encontrado && ( votosContados < nVotos/2 +1 ); i++){
+    for( int i = 0; ( i < mayorID ) && !ganador.mayoria && ( votosContados < nVotos/2 +1 ); i++){
         if( resultado[i] > nVotos/2 ){
-            encontrado = true;
             ganador.mayoria = true;
             ganador.nIdentificador = i;
             ganador.numeroVotos = resultado[i];
