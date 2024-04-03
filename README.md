@@ -51,7 +51,7 @@ producto hasta que este sea mayor a n.
 
 <b>Divide y vencerás:</b> Se realiza una búsqueda binaria empezando por n/2.
 
-# Organizar un calendario
+## Organizar un calendario
 
 Dado un número determinado de equipos, potencia de 2, debemos de organizar un calendario 
 deportivo en el que cada equipo compita 
