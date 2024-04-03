@@ -80,17 +80,17 @@ void PrintVector(const vector<int>& v){
 }
 
 void EliminarRepes(vector<int>& v){
-    vector<int> vaux;
-    vaux.resize(v.size());
-    MergeSort(v, 0, v.size()-1, vaux);
-    int elem_v=0;
-    for(int elem : vaux){
-        if(elem != -1){
-            v[elem_v]=elem;
-            ++elem_v;
+    vector<int> vaux; //O(1)
+    vaux.resize(v.size()); //O(n)
+    MergeSort(v, 0, v.size()-1, vaux); //O(nlogn)
+    int elem_v=0; //O(1)
+    for(int elem : vaux){ //O(n)
+        if(elem != -1){ //O(1)
+            v[elem_v]=elem; //O(1)
+            ++elem_v; //O(1)
         }
     }
-    v.resize(elem_v);
+    v.resize(elem_v); //O(1) no hace realloc
 }
 
 void fusionaMS(vector<int>& v, int posIni, int centro, int posFin, vector<int>& vaux) {

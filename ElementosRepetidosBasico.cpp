@@ -93,19 +93,19 @@ void OrdenaConteo(vector<int>& v) {
 }
 
 void EliminarRepes(vector<int>& vec){
-    int elem, elem_actual=1;
-    vector<int> vec_limpio;
+    int elem, elem_actual=1; //O(1)
+    vector<int> vec_limpio; //O(1)
     if(vec.empty())
         return;
     vec_limpio=vec; //O(n);
     OrdenaConteo(vec_limpio); //O(n+k)
     vec[0]=vec_limpio[0]; //O(1)
-    for(elem = 1; elem < vec_limpio.size(); elem++)
-        if(vec_limpio[elem-1] != vec_limpio[elem]){
-            vec[elem_actual]=vec_limpio[elem];
-            ++elem_actual;
+    for(elem = 1; elem < vec_limpio.size(); elem++) //O(n-1)
+        if(vec_limpio[elem-1] != vec_limpio[elem]){ //O(1)
+            vec[elem_actual]=vec_limpio[elem]; //O(1)
+            ++elem_actual; //O(1)
         }
-    vec.resize(elem_actual);
+    vec.resize(elem_actual); //O(1), no tiene que hacer realloc
 }
 
 void PrintVector(const vector<int>& vec){
