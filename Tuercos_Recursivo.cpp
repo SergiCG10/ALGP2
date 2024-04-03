@@ -230,7 +230,7 @@ int main(int argc, char *argv[]) {
 
 		
 
-		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::nanoseconds>(tf - t0).count();
+		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
 
 		
 

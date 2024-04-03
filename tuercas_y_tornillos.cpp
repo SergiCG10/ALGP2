@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
 		tuercas_y_tornillos(bolti, v, n ); // Ejecutamos el algoritmo para tamaÒo de caso n
 		tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
 		
-		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::nanoseconds>(tf - t0).count();
+		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
 		
 		cerr << "\tTiempo de ejec. (us): " << tejecucion << " para tam. caso "<< n<<endl;
 		
