@@ -104,9 +104,11 @@ int main( int argc, char * argv[] ){
        
 		for(int i =0; i < numVotantes; i++){	
             int aux = rand()%celdasNoIniciadas;
+            celdasNoIniciadas -= aux;
             for(int contador =0 ; contador < aux && i<numVotantes; contador++, i++){
                 votos[i] = rand()%numCandidatos;
             }
+            
         }
 
         for(int i =0; i< numVotantes; i++){
