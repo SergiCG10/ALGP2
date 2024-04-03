@@ -248,7 +248,7 @@ int main(int argc, char *argv[]) {
 
 		// Liberamos memoria del vector
 
-		delete [] v;
+	
 
 	}
 
