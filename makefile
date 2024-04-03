@@ -24,8 +24,6 @@ all:
 	@g++ -o calendarioCampeonato_iterativo.bin calendarioCampeonato_iterativo.cpp -std=c++11
 	@echo Ejercicio 5 compilado
 	
-	@echo Pruebe a ejecutar el algoritmo iterativo con ./laMayoriaAbsolutaIterativo 12345 1000000 100
-
 #elimina los ejecutables
 clean:
 	@rm laMayoriaAbsolutaIterativo.bin

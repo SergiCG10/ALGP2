@@ -247,8 +247,8 @@ int main(int argc, char *argv[]) {
 		
 
 		// Liberamos memoria del vector
-
-	
+        a.clear();
+        b.clear();
 
 	}
 
