@@ -4,7 +4,7 @@ all:
 	@g++ -o laMayoriaAbsolutaDV.bin laMayoriaAbsolutaDV.cpp -std=c++11
 	@echo Ejercicio 1 compilado
 	@echo Pruebe a ejecutar el algoritmo iterativo con ./laMayoriaAbsolutaIterativo.bin salida.txt 7895 1000 2 2000 10 3000 20 4000 30
-	@echo Pruebe a ejecutar el algoritmo recursivo con ./laMayoriaAbsolutaDV.bin salida.txt 7895 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000
+	@echo Pruebe a ejecutar el algoritmo recursivo con ./laMayoriaAbsolutaDV.bin salida.txt 7895 1000 2000 3000 4000 5000 6000 7000 8000
 
 	#Compilando Ejercicio2...
 	@g++ -o Tuercas_Iterativo.bin Tuercas_Iterativo.cpp -std=c++11
@@ -19,7 +19,7 @@ all:
 	@g++ -o ElementosRepetidosDV.bin ElementosRepetidosDV.cpp -std=c++11
 	@echo Ejercicio 3 compilado
 
-	@echo Pruebe a ejecutar el algoritmo iterativo con ./ElementosRepetidosBasico.bin salida.txt 123512 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000
+	@echo Pruebe a ejecutar el algoritmo iterativo con ./ElementosRepetidosBasico.bin salida.txt 12345 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000
 	@echo Pruebe a ejecutar el algoritmo recursivo con ./ElementosRepetidosDV.bin salida.txt 12345 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000
 	
 	#Compilando Ejercicio4...
@@ -27,8 +27,8 @@ all:
 	@g++ -o Productode3DV.bin Productode3DV.cpp -std=c++11
 	@echo Ejercicio 4 compilado
 
-	@echo Pruebe a ejecutar el algoritmo iterativo con ./ElementosRepetidosBasico.bin salida.txt 
-	@echo Pruebe a ejecutar el algoritmo recursivo con ./ElementosRepetidosDV.bin salida.txt 
+	@echo Pruebe a ejecutar el algoritmo iterativo con ./Productode3Iterativo.bin salida.txt 1030200 8120400 100000 27030 2039200
+	@echo Pruebe a ejecutar el algoritmo recursivo con ./Productode3DV.bin salida.txt 1030200 8120400 100000 27030 2039200
 
 	#Compilando Ejercicio5...
 	@g++ -o calendarioCampeonato_DV.bin calendarioCampeonato_DV.cpp -std=c++11
