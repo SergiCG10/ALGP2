@@ -9,6 +9,28 @@ y vencerás" para resolver algorítmicos. Se deberá de estudiar la eficiencia d
 ambas soluciones.
 
 
+## Mayoría absoluta
+
+Dada una lista de votos, devolvemos si hay algún candidato que tenga mayoría absoluta.
+
+<b>Método básico: </b> Se reunen las frecuencias de voto para cada candidato, 
+aquel con la mayor frecuencia de voto, si posee más del 50% de lo votos,
+será el candidato con mayoría absoluta.
+
+<b>Divide y vencerás </b>: Se ordena el vector de votos y se busca si existe algún 
+elemento contenido en v[i], para el que v[i] = v[ i + n/2 ].
+
+
+## Tuercas y tornillos
+
+Tenemos dos cajones, cada uno lleno de tuercas y tornillos, los que no podemos comparar 
+entre sí (tuercas con tuercas o tornillos con tornillos),y debemos de colocar las tuercas 
+en la misma posición que los tornillos
+
+<b>Método básico: </b> HAY QUE RELLENAR
+
+<b>Divide y vencerás </b> HAY QUE RELLENAR
+
 ## Elementos repetidos
 
 Dado un vector de enteros, se deberá de eliminar los elementos repetidos.
@@ -16,7 +38,7 @@ Dado un vector de enteros, se deberá de eliminar los elementos repetidos.
 <b>Método básico:</b> Se usa un std::set<int> para evitar repetidos y se sobrescribe
 el array.
 
-<b>Divide y vencerás:</b> a.
+<b>Divide y vencerás:</b> HAY QUE RELLENAR
 
 
 ## Producto de 3 
@@ -29,15 +51,20 @@ producto hasta que este sea mayor a n.
 
 <b>Divide y vencerás:</b> Se realiza una búsqueda binaria empezando por n/2.
 
+# Organizar un calendario
 
-## Mayoría absoluta
+Dado un número determinado de equipos, potencia de 2, debemos de organizar un calendario 
+deportivo en el que cada equipo compita 
 
-Dada una lista de votos a partidos políticos, se devuelve si habrá mayoría absoluta
-y el partido que la obtiene.
+<b>Método básico: </b> Utilizamos el método round robin para repartir los partidos:
+	
+<b>Divide y vencerás </b> A partir de una matriz organizada de partidos, podemos vislumbrar
+un patrón dentro de la misma si la dividimos en cuatro cuadrantes:
+	
+	-El primer y el tercer cuadrante poseen los mismo datos.
+	
+	-El segundo y cuarto cuadrante contienen los mismos datos que el primero y el tercero,
+	 pero sumandole n/2 a cada casilla
 
-<b>Método básico: </b> Se reunen las frecuencias de voto para cada partido, 
-aquel con la mayor frecuencia de voto, siendo esta mayor al 50% de lo votos,
-será el partido con mayoría absoluta.
 
-<b>Divide y vencerás </b>: a.
 

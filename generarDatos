@@ -1,0 +1,228 @@
+#!/bin/bash
+
+#
+# @user Sergio Calvo González
+# @correo sergiocg10@correo.ugr.es
+# 
+# Este fichero ha sido creado para analizar empiricamente la eficiencia
+# de los algorítmos de ordenación.
+# 
+# uso : ./generarDatos <nombreMetodoOrd> <incremento> <limiteInferior> <limiteSuperior>
+# 
+# 
+#  Los datos se guardarán autmáticamente en una carpeta donde encontrarás 
+# los datos recolectados y una gráfica.
+
+if [ $# != 5 ] ; #Nos aseguramos de que el numero de parámetros es el correcto
+then
+	echo "Número de parámetros erróneo"
+	echo "Uso: ./generarDatos <nombreMetodoOrd> <incremento> <limiteInferior> <limiteSuperior> <semilla>"
+else
+	j=1
+	generarGrafica=0
+	metodo=$1
+	incremento=$2
+	ini=$3
+	fin=$4
+	semilla=$5
+	nombre=$incremento"_"$ini"_"$fin"_"$semilla
+	localizacion=datosGenerados/$metodo/$nombre
+	
+	#Nos aseguramos de que los parámetos son correctos
+	if [ ! -e $metodo ] || [ $incremento -le 0 ] || [ $ini -le 0 ] || [ $fin -le 0 ];
+	then
+		echo "Compruebe los parámetos introducidos, el nombre del ejecutable del método, el incremento o los limites podrían ser erróneos"
+		exit 1
+	fi
+	
+	#Aquí gestionamos si se desea crear una gráfica con los datos
+	
+	read -p "¿Deseas crear la gŕafica de los datos? s/n  " opcion
+		 
+	if [ "$opcion" == "s" ]; then generarGrafica=1; fi
+	
+	#Comprobamos si la carpeta para guardar los datos existe
+	if [ ! -d datosGenerados ];
+	then
+		mkdir datosGenerados
+		echo "Carpeta para guardar los datos creada"
+		
+	fi
+	
+	#Comprobamos si existe una carpeta con el nombre del metodo
+	if [ ! -d datosGenerados/$metodo ];
+	then
+		mkdir datosGenerados/$metodo
+	fi
+	
+	if [ ! -d $localizacion ];
+	then
+		mkdir $localizacion
+	else
+		while  test -e $localizacion"("$j")" 
+				do
+					j=$[ $j + 1 ]
+				done
+			nombre=$nombre"($j)"
+			localizacion=datosGenerados/$metodo/$nombre
+			echo "Nombre repetido, se guardará como $nombre en $localizacion"
+			mkdir $localizacion
+	fi
+	
+	touch $localizacion/datos.txt
+	
+	touch datosGenerados/temp
+	while [ $ini -le $fin ] ;
+	do
+		./$metodo datosGenerados/temp $semilla $ini 
+		cat datosGenerados/temp >> $localizacion/datos.txt
+		
+		ini=$[ $ini + $incremento ] ;
+		
+	done
+	
+	rm datosGenerados/temp
+	
+	if [ $generarGrafica -eq 1 ] ;
+	then
+		echo "Generando grafica..."
+		echo $metodo
+		case "$metodo" in
+			*"Burbuja"*)
+			
+			echo "Ajustado a x²"
+			gnuplot <<- BEGIN_GNUPLOT
+			set term png
+			set output "$localizacion/grafica"
+			set title "Eficiencia$metodo$nombre"
+			set xlabel "Nº ejecuciones"
+			set ylabel "Segundos"
+			set grid
+			f(x)=a*x**2+b
+			fit f(x) "$localizacion/datos.txt" via a,b
+			print "Valor de a: ", a
+			print "Valor de b: ", b
+			plot f(x) , "$localizacion/datos.txt"
+			BEGIN_GNUPLOT
+			
+			;;
+			*"MergeSort"*)
+			
+			echo "Ajustado a k*n*log(n) + b"
+			gnuplot <<- BEGIN_GNUPLOT
+			set term png
+			set output "$localizacion/grafica"
+			set title "Eficiencia$metodo$nombre"
+			set xlabel "Nº ejecuciones"
+			set ylabel "Segundos"
+			set grid
+			f(x)=a*x*log(x) + b
+			fit f(x) "$localizacion/datos.txt" via a,b
+			print "Valor de k: ", a
+			print "Valor de b: ", b
+			plot f(x) , "$localizacion/datos.txt"
+			BEGIN_GNUPLOT
+			
+			;;
+			*"Counting"*)
+			
+			echo "Ajustado a kn + b"
+			gnuplot <<- BEGIN_GNUPLOT
+			set term png
+			set output "$localizacion/grafica"
+			set title "Eficiencia$metodo$nombre"
+			set xlabel "Nº ejecuciones"
+			set ylabel "Segundos"
+			set grid
+			f(x)=a*x + b
+			fit f(x) "$localizacion/datos.txt" via a, b
+			print "Valor de k: ", a
+			print "Valor de b: ", b
+			plot f(x) , "$localizacion/datos.txt"
+			BEGIN_GNUPLOT
+			
+			;;
+			
+			*"Insertion"*)
+			
+			echo "Ajustado a x²"
+			gnuplot <<- BEGIN_GNUPLOT
+			set term png
+			set output "$localizacion/grafica"
+			set title "Eficiencia$metodo$nombre"
+			set xlabel "Nº ejecuciones"
+			set ylabel "Segundos"
+			set grid
+			f(x)=a*x**2+b
+			fit f(x) "$localizacion/datos.txt" via a,b
+			print "Valor de a: ", a
+			print "Valor de b: ", b
+			plot f(x) , "$localizacion/datos.txt"
+			BEGIN_GNUPLOT
+			
+			;;
+			
+			*"Quick"*)
+			
+			echo "Ajustado a k*n*log(n) + b"
+			gnuplot <<- BEGIN_GNUPLOT
+			set term png
+			set output "$localizacion/grafica"
+			set title "Eficiencia$metodo$nombre"
+			set xlabel "Nº ejecuciones"
+			set ylabel "Segundos"
+			set grid
+			f(x)=a*x*log(x) + b
+			fit f(x) "$localizacion/datos.txt" via a,b
+			print "Valor de k: ", a
+			print "Valor de b: ", b
+			plot f(x) , "$localizacion/datos.txt"
+			BEGIN_GNUPLOT
+			
+			;;
+			*"Selection"*)
+			
+			echo "Ajustado a x²"
+			gnuplot <<- BEGIN_GNUPLOT
+			set term png
+			set output "$localizacion/grafica"
+			set title "Eficiencia$metodo$nombre"
+			set xlabel "Nº ejecuciones"
+			set ylabel "Segundos"
+			set grid
+			f(x)=a*x**2+b
+			fit f(x) "$localizacion/datos.txt" via a,b
+			print "Valor de a: ", a
+			print "Valor de b: ", b
+			plot f(x) , "$localizacion/datos.txt"
+			BEGIN_GNUPLOT
+			
+			;;
+			
+			*"Shell"*)
+			
+			echo "Ajustado a x²"
+			gnuplot <<- BEGIN_GNUPLOT
+			set term png
+			set output "$localizacion/grafica"
+			set title "Eficiencia$metodo$nombre"
+			set xlabel "Nº ejecuciones"
+			set ylabel "Segundos"
+			set grid
+			f(x)=a*x**2+b
+			fit f(x) "$localizacion/datos.txt" via a,b
+			print "Valor de a: ", a
+			print "Valor de b: ", b
+			plot f(x) , "$localizacion/datos.txt"
+			BEGIN_GNUPLOT
+			
+			;;
+			
+			*)
+			echo "Se desconoce el metodo seleccionado, compruebe que sigue el formato requerido."
+		esac
+		
+	fi
+fi
+echo "Fin de ejecución"
+
