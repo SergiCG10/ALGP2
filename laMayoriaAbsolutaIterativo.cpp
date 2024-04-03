@@ -111,9 +111,6 @@ int main( int argc, char * argv[] ){
             
         }
 
-        for(int i =0; i< numVotantes; i++){
-            cout<< "["<<votos[i]<<"]"<<endl;
-        }
         // Abrimos fichero de salida
         fsalida.open(argv[1]);
         if (!fsalida.is_open()) {
