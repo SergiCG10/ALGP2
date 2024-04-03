@@ -1,3 +1,5 @@
+
+
 #include <cstdlib>
 #include <chrono>
 #include <iostream>
@@ -9,21 +11,21 @@ using namespace std;
 
 
 
-void orden(int * a, int * b, int n){
-    bool fr=true;
+void tuercas_y_tornillos(const int * a, int * b, int n){ //Vector a no cambia, b si cambia
+    bool ActiveBucle=true;
     for(int i =0; i < n; i++){
         if(a[i]!=b[i]){
-            for(int j = i; fr; j++){
+            for(int j = i; ActiveBucle; j++){
                 if(a[i]==b[j]){
                     swap(b[i],b[j]);
-                    fr=false;
+                    ActiveBucle=false;
                 }
             }
-            fr=true;
-        }
-         
-  }
-  }
+            ActiveBucle=true;
+	}   
+    }
+}
+
 int main(int argc, char *argv[]) {
 	
 	int *v; int *bolti;
@@ -78,7 +80,7 @@ int main(int argc, char *argv[]) {
 		cerr << "Ejecutando QuickSort para tam. caso: " << n << endl;
 
 		t0= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que comienza la ejecuciÛn del algoritmo
-		orden(bolti, v, n ); // Ejecutamos el algoritmo para tamaÒo de caso n
+		tuercas_y_tornillos(bolti, v, n ); // Ejecutamos el algoritmo para tamaÒo de caso n
 		tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
 		
 		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::nanoseconds>(tf - t0).count();
@@ -98,4 +100,3 @@ int main(int argc, char *argv[]) {
 	
 	return 0;
 }
-
