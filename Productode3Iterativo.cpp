@@ -14,6 +14,8 @@ bool finder(const int &n, int &k){
 			k = i;
 		}
 	}
+    if(!found)
+        k=0;
 	return found;
 }
 
