@@ -14,12 +14,11 @@ int main(int argc, char *argv[]) {
 	int n, i, argumento, numero, prod3=0;
     chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
 	double tejecucion; // tiempo de ejecucion del algoritmo en ms
-	unsigned long int semilla;
 	ofstream fsalida;
 	
 	if (argc <= 3) {
 		cerr<<"\nError: El programa se debe ejecutar de la siguiente forma.\n\n";
-		cerr<<argv[0]<<" NombreFicheroSalida Semilla tamCaso1 tamCaso2 ... tamCasoN\n\n";
+		cerr<<argv[0]<<" NombreFicheroSalida tamCaso1 tamCaso2 ... tamCasoN\n\n";
 		return 0;
 	}
 	
@@ -30,12 +29,9 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 	
-	// Inicializamos generador de no. aleatorios
-	semilla= atoi(argv[2]);
-	srand(semilla);
 	
 	// Pasamos por cada tamaÒo de caso
-	for (argumento= 3; argumento<argc; argumento++) {
+	for (argumento= 2; argumento<argc; argumento++) {
 		
 		// Cogemos el tamanio del caso
 		n= atoi(argv[argumento]);

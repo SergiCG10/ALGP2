@@ -168,7 +168,7 @@ int main(int argc, char* argv[]){
 		fsalida<<""<<nEquipos<<" "<<tejecucion<<"\n";
 
         //Imprimimos el calendario 
-        imprimirCalendario(calendario, nEquipos );
+//        imprimirCalendario(calendario, nEquipos );
 
         //Liberamos memoria
         for(int i =0; i < nEquipos; i++){
