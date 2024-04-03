@@ -79,63 +79,61 @@ int main( int argc, char * argv[] ){
         cerr<<"idenficador maximo de candidato (solo sirve para crear el vector de forma aleatoria)\n\n";
 
     }
-    	int semilla = 0; //Semilla para generar el vector votos pseudoaleatoriamente
-        int* votos; //Vector que contendrá los votos, cada posición corresponde con un votante
-        int numVotantes; // n
-        int numCandidatos; // k
-        int argumento;
-        chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
-        ofstream fsalida;
-        candidato resultado;
+    int semilla = 0; //Semilla para generar el vector votos pseudoaleatoriamente
+    int* votos; //Vector que contendrá los votos, cada posición corresponde con un votante
+    int numVotantes; // n
+    int numCandidatos; // k
+    int argumento;
+    chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
+    ofstream fsalida;
+    candidato resultado;
+    // Abrimos fichero de salida
+    fsalida.open(argv[1]);
+    if (!fsalida.is_open()) {
+        cerr<<"Error: No se pudo abrir fichero para escritura "<<argv[1]<<"\n\n";
+        return 0;
+    }  
 
-        //Cogemos la semilla para rellenar el vector de votos
-        semilla= atoi(argv[2]);
-	    srand(semilla);
-		
-		// Cogemos el numero de votantes y el max de candidatos
-		numVotantes = atoi( argv[3] );
-        numCandidatos = atoi( argv[4]);
+    //Cogemos la semilla para rellenar el vector de votos
+    semilla= atoi(argv[2]);
+    srand(semilla);
+    for(argumento = 3; argumento < argc-1; argumento+=2){ 		
+        // Cogemos el numero de votantes y el max de candidatos
+        numVotantes = atoi( argv[argumento] );
+        numCandidatos = atoi( argv[argumento+1]);
 
         // Reservamos memoria para el vector
-		votos = new int[numVotantes];
-        
+        votos = new int[numVotantes];
+
         // Generamos vector aleatorio de prueba, con componentes entre 0 y n-1
         int celdasNoIniciadas = numVotantes;
-       
-		for(int i =0; i < numVotantes; i++){	
+
+        for(int i =0; i < numVotantes; i++){	
             int aux = rand()%celdasNoIniciadas;
             celdasNoIniciadas -= aux;
             for(int contador =0 ; contador < aux && i<numVotantes; contador++, i++){
                 votos[i] = rand()%numCandidatos;
             }
-            
+
         }
 
-        // Abrimos fichero de salida
-        fsalida.open(argv[1]);
-        if (!fsalida.is_open()) {
-            cerr<<"Error: No se pudo abrir fichero para escritura "<<argv[1]<<"\n\n";
-            return 0;
-        }  
 
         t0= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que comienza la ejecuciÛn del algoritmo
-        
+
         resultado = mayoriaABS(votos, numVotantes);
 
         tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
-		
-		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
+
+        unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
 
         cerr << "\tTiempo de ejec. (us): " << tejecucion << " para "<< numVotantes << " votantes y "<< numCandidatos <<" candidatos "<<endl;
-		
-		// Guardamos tam. de caso y t_ejecucion a fichero de salida
-		fsalida<<numVotantes<<""<<numCandidatos<<" "<<tejecucion<<"\n";
-		
-		// Liberamos memoria del vector
-		delete [] votos;
 
-        //Cerramos el fichero de salida
-        fsalida.close();
+        // Guardamos tam. de caso y t_ejecucion a fichero de salida
+        fsalida<<numVotantes<<" "<<tejecucion<<"\n";
+
+        // Liberamos memoria del vector
+        delete [] votos;
+
 
         // Sacamos por pantalla el resultado
         if( resultado.mayoria ){
@@ -143,6 +141,8 @@ int main( int argc, char * argv[] ){
         }else{
             cout<< "Ningún candidato tiene la mayoría absoluta\n";
         }
-    }
+    } 
+    //Cerramos el fichero de salida
+    fsalida.close();
     return 0;
 }

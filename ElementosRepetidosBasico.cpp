@@ -6,7 +6,8 @@
 
 using namespace std;
 
-vector<int> EliminarRepes(const vector<int>& vec);
+void OrdenaConteo(vector <int>& v);
+void EliminarRepes(vector<int>& vec);
 void PrintVector(const vector<int>& vec);
 
 int main(int argc, char *argv[]) {
@@ -50,13 +51,13 @@ int main(int argc, char *argv[]) {
 		cerr << "Ejecutando ElementosRepetidosBasico para tam. caso: " << n << endl;
 		
 		t0= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que comienza la ejecuciÛn del algoritmo
-		v=EliminarRepes(v); // Ejecutamos el algoritmo para tamaÒo de caso tam
+		EliminarRepes(v); // Ejecutamos el algoritmo para tamaÒo de caso tam
 		tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
 		
 		unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
 
 		cerr << "\tTiempo de ejec. (us): " << tejecucion << " para tam. caso "<< n<<endl;
-		
+
 		// Guardamos tam. de caso y t_ejecucion a fichero de salida
 		fsalida<<n<<" "<<tejecucion<<"\n";
 		
@@ -70,24 +71,41 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-vector<int> EliminarRepes(const vector<int>& vec){
-    int elem, index;
-    vector<int> vec_limpio;
-    bool unico = true;
-    if(vec.empty())
-        return vec_limpio;
+void OrdenaConteo(vector<int>& v) {
+    
+    int max_value=0, i = 0, n = v.size(); //O(1)
+    for(i = 0; i < n; i++) //O(n)
+        if(max_value < v[i]) //O(1)
+            max_value = v[i]; //O(1)
 
-    vec_limpio.push_back(vec[0]);
-    for(elem = 1; elem < vec.size(); elem++){
-        unico = true;
-        for(index = 0; unico && index < vec_limpio.size(); 
-                index++)
-            if(vec_limpio[index] == vec[elem])
-                unico = false;
-        if(unico)
-            vec_limpio.push_back(vec[elem]);
+    vector<int> count(max_value+1, 0); //O(n)
+    for(i = 0; i < n; i++) //O(n)
+        ++count[v[i]]; //O(1)
+
+    for(i = 1; i <= max_value; i++) //O(max_value)
+        count[i] += count[i-1]; //O(1)
+    vector<int> out(n); //O(n)
+    for(int i = n-1; i >= 0; i--){ //O(n)
+        out[count[v[i]]-1] = v[i]; //O(1)
+        count[v[i]]--; //O(1)
     }
-    return vec_limpio;
+    v=out; //O(n)
+}
+
+void EliminarRepes(vector<int>& vec){
+    int elem, elem_actual=1;
+    vector<int> vec_limpio;
+    if(vec.empty())
+        return;
+    vec_limpio=vec; //O(n);
+    OrdenaConteo(vec_limpio); //O(n+k)
+    vec[0]=vec_limpio[0]; //O(1)
+    for(elem = 1; elem < vec_limpio.size(); elem++)
+        if(vec_limpio[elem-1] != vec_limpio[elem]){
+            vec[elem_actual]=vec_limpio[elem];
+            ++elem_actual;
+        }
+    vec.resize(elem_actual);
 }
 
 void PrintVector(const vector<int>& vec){
