@@ -6,7 +6,8 @@ all:
 	@echo Ejercicio 1 compilado
 	
 	#Ejercicio2
-	
+	@g++ -otuercasytornillosIterativo.bin tuercas_y_tornillos.cpp -std=c++11
+	@echo Ejercicio 2 compilado
 	#Ejercicio3
 	@g++ -o ElementosRepetidosBasico.bin ElementosRepetidosBasico.cpp -std=c++11
 	@g++ -o ElementosRepetidosDV.bin ElementosRepetidosDV.cpp -std=c++11
@@ -28,6 +29,7 @@ all:
 clean:
 	@rm laMayoriaAbsolutaIterativo.bin
 	@rm laMayoriaAbsolutaDV.bin
+	@rm tuercasytornillosIterativo.bin
 	@rm ElementosRepetidosBasico.bin
 	@rm ElementosRepetidosDV.bin
 	@rm Productode3Iterativo.bin
