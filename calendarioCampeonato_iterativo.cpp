@@ -107,18 +107,25 @@ bool potenciaDe2(int n){
 }
 
 int main(int argc, char* argv[]){
-    if( argc != 3){
+    if( argc < 3){
         cerr<<"\nError: El programa se debe ejecutar de la siguiente forma:\n\n";
         cerr<<"./calendarioCampeonato_DV <nombreFicheroSalida> <numEquipos>\n";
         cerr<<"nombreFicheroSalida: nombre del fichero de salida de datos para la eficiencia\n";
         cerr<<"numEquipos: numero de equipos para organizar el campeonato (debe de ser potencia de 2) \n\n";
-    }else{
-        ofstream fsalida;
-        chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
+        return -1;
+    }
+    ofstream fsalida(argv[1]);
+    if(!fsalida.is_open()){
+        cerr << "No se pudo abrir el archivo de salida" << endl;
+        return -1;
+    }
+    chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
+
+    //Numero de equipos
+    int nEquipos = 0, argumento; 
+    for(argumento=2; argumento < argc; argumento++){
         
-        //Numero de equipos
-        int nEquipos = atoi(argv[2]);
-      
+        nEquipos = atoi(argv[argumento]);
         //Comprobamos que sea potencia de 2
         if( !potenciaDe2(nEquipos) || nEquipos <= 1){
             cerr<<"\nError: el numero de equipos debe de ser potencia de 2 o mayor que 1"<<endl;
@@ -129,27 +136,21 @@ int main(int argc, char* argv[]){
         for(int i=0; i< nEquipos; i++){
             calendario[i] = new int [nEquipos];
         }
-        
-        // Abrimos fichero de salida
-        fsalida.open(argv[1]);
-        if (!fsalida.is_open()) {
-            cerr<<"Error: No se pudo abrir fichero para escritura "<<argv[1]<<"\n\n";
-            return 0;
-        }
+
 
         t0= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que comienza la ejecuciÛn del algoritmo
-        organizarCalendario( calendario, nEquipos);
+        organizarCalendario(calendario, nEquipos);
         tf= std::chrono::high_resolution_clock::now(); // Cogemos el tiempo en que finaliza la ejecuciÛn del algoritmo
 
         unsigned long tejecucion= std::chrono::duration_cast<std::chrono::microseconds>(tf - t0).count();
 
         cerr << "\tTiempo de ejec. (us): " << tejecucion << " para "<< nEquipos << " equipos"<<endl;
-		
-		// Guardamos tam. de caso y t_ejecucion a fichero de salida
-		fsalida<<""<<nEquipos<<" "<<tejecucion<<"\n";
+
+        // Guardamos tam. de caso y t_ejecucion a fichero de salida
+        fsalida<<""<<nEquipos<<" "<<tejecucion<<"\n";
 
         //Imprimimos el calendario 
-//        imprimirCalendario(calendario, nEquipos );
+        //        imprimirCalendario(calendario, nEquipos );
 
         //Liberamos memoria
         for(int i =0; i < nEquipos; i++){
@@ -157,5 +158,5 @@ int main(int argc, char* argv[]){
         }
         delete [] calendario;
     }
-    return 0;
+return 0;
 }
