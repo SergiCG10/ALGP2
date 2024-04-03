@@ -2,12 +2,12 @@
 all:
 	#Ejercicio1
 	@g++ -o laMayoriaAbsolutaIterativo.bin laMayoriaAbsolutaIterativo.cpp -std=c++11
-	@g++ -olaMayoriaAbsolutaDV.bin laMayoriaAbsolutaDV.cpp -std=c++11
+	@g++ -o laMayoriaAbsolutaDV.bin laMayoriaAbsolutaDV.cpp -std=c++11
 	@echo Ejercicio 1 compilado
 	
 	#Ejercicio2
-	@g++ -otuercasytornillosIterativo.bin tuercas_y_tornillos.cpp -std=c++11
-	@g++ -otuercasytornillosDV.bin Tuercos_Recursivo.cpp -std=c++11
+	@g++ -o Tuercas_Iterativo.bin Tuercas_Iterativo.cpp -std=c++11
+	@g++ -o Tuercas_DV.bin Tuercas_Recursivo.cpp -std=c++11
 	@echo Ejercicio 2 compilado
 	#Ejercicio3
 	@g++ -o ElementosRepetidosBasico.bin ElementosRepetidosBasico.cpp -std=c++11
@@ -28,8 +28,8 @@ all:
 clean:
 	@rm laMayoriaAbsolutaIterativo.bin
 	@rm laMayoriaAbsolutaDV.bin
-	@rm tuercasytornillosIterativo.bin
-	@rm tuercasytornillosDV.bin
+	@rm Tuercas_Iterativo.bin
+	@rm Tuercas_DV.bin
 	@rm ElementosRepetidosBasico.bin
 	@rm ElementosRepetidosDV.bin
 	@rm Productode3Iterativo.bin
