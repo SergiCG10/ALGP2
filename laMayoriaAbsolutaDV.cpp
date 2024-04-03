@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
 		cerr<<"Error: No se pudo abrir fichero para escritura "<<argv[1]<<"\n\n";
 		return 0;
 	}
-	
+     	
 	// Inicializamos generador de no. aleatorios
 	semilla= atoi(argv[2]);
 	srand(semilla);

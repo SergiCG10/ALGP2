@@ -72,7 +72,7 @@ candidato mayoriaABS(int* v, int nVotos ){
 
 int main( int argc, char * argv[] ){
 
-    if(argc != 5){
+    if(argc <  5){
         cerr<<"\nError: El programa se debe ejecutar de la siguiente forma:\n\n";
         cerr<<"./laMayoriaAbsolutaIterativo <nombreFicheroSalida> <semilla> <numVotantes> <numCandidatos>\n";
         cerr<<"nombreFicheroSalida: nombre del fichero de salida de datos para la eficiencia\n";
@@ -80,11 +80,12 @@ int main( int argc, char * argv[] ){
         cerr<<"numVotantes: numero de votante\n";
         cerr<<"idenficador maximo de candidato (solo sirve para crear el vector de forma aleatoria)\n\n";
 
-    }else{
+    }
     	int semilla = 0; //Semilla para generar el vector votos pseudoaleatoriamente
         int* votos; //Vector que contendrá los votos, cada posición corresponde con un votante
         int numVotantes; // n
         int numCandidatos; // k
+        int argumento;
         chrono::time_point<std::chrono::high_resolution_clock> t0, tf; // Para medir el tiempo de ejecución
         ofstream fsalida;
         candidato resultado;
